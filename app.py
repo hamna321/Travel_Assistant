@@ -1,6 +1,6 @@
+import streamlit as st
 from groq import Groq
 from datasets import load_dataset
-import streamlit as st
 
 # Initialize the Groq client
 client = Groq(api_key="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")
@@ -37,17 +37,22 @@ def get_travel_recommendations(org, dest, days, visiting_city_number, date, peop
     )
     return chat_completion.choices[0].message.content
 
-def main():
-    st.title('Travel Planner')
+def sidebar_controllers():
+    st.sidebar.header("Travel Planning")
+    
+    org = st.sidebar.text_input("Enter the city of origin:")
+    dest = st.sidebar.text_input("Enter the destination city:")
+    days = st.sidebar.number_input("Enter the number of days:", min_value=1)
+    visiting_city_number = st.sidebar.number_input("Enter the number of cities to visit:", min_value=1)
+    date = st.sidebar.date_input("Enter the start date:")
+    people_number = st.sidebar.number_input("Enter the number of people:", min_value=1)
+    local_constraint = st.sidebar.text_input("Enter any local constraints (e.g., dietary restrictions, transportation preferences):")
+    query = st.sidebar.text_input("Enter your travel query (e.g., what to visit, where to stay):")
 
-    org = st.text_input("Enter the city of origin:")
-    dest = st.text_input("Enter the destination city:")
-    days = st.number_input("Enter the number of days:", min_value=1)
-    visiting_city_number = st.number_input("Enter the number of cities to visit:", min_value=1)
-    date = st.date_input("Enter the start date:")
-    people_number = st.number_input("Enter the number of people:", min_value=1)
-    local_constraint = st.text_input("Enter any local constraints (e.g., dietary restrictions, transportation preferences):")
-    query = st.text_input("Enter your travel query (e.g., what to visit, where to stay):")
+    return org, dest, days, visiting_city_number, date, people_number, local_constraint, query
+
+def body(org, dest, days, visiting_city_number, date, people_number, local_constraint, query):
+    st.title('Travel Planner')
 
     if st.button('Get Recommendations'):
         if org and dest and date and query:
@@ -70,4 +75,5 @@ def main():
             st.write("Please fill in all required fields.")
 
 if __name__ == "__main__":
-    main()
+    org, dest, days, visiting_city_number, date, people_number, local_constraint, query = sidebar_controllers()
+    body(org, dest, days, visiting_city_number, date, people_number, local_constraint, query)
