@@ -5,12 +5,12 @@ from groq import Groq
 # Initialize the Groq client
 client = Groq(api_key="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")
 
-# Load the TravelPlanner dataset
+# Load the TravelPlanner dataset with explicit configurations
 @st.cache
-def load_data():
-    return load_dataset("osunlp/TravelPlanner", split="train")
+def load_data(split):
+    return load_dataset("osunlp/TravelPlanner", split=split)
 
-train_ds = load_data()
+train_ds = load_data("train")  # Load the 'train' split
 
 def retrieve_travel_data(dest, days, people_number, local_constraint):
     filtered_data = train_ds.filter(lambda example: dest in example.get('destination', ''))
