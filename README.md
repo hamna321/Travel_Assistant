@@ -15,7 +15,6 @@ To run this app, you'll need to install the necessary dependencies. If you're ru
 1. Install the required Python packages:
 
     ```bash
-    !pip install streamlit
     !pip install groq
     !pip install datasets
     ```
@@ -35,7 +34,9 @@ To run this app, you'll need to install the necessary dependencies. If you're ru
 2. Run the Streamlit app using the following command:
 
     ```bash
-    !streamlit run app.py --server.port 8501
+    !pip install streamlit
+    !wget -q -O - ipv4.icanhazip.com
+    !streamlit run app.py & npx localtunnel --port 8501
     ```
 
 3. A URL will be provided in the Colab output. Click on it to open the app in a new tab.
