@@ -3,7 +3,7 @@ from groq import Groq
 from datasets import load_dataset
 
 # Set up Groq API client
-client = Groq(api_key="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")
+client = Groq(api_key="api_key")
 
 # Load datasets
 train_ds = load_dataset("osunlp/TravelPlanner", "train")
